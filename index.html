@@ -4,9 +4,154 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kieran Greenwood | Web Developer</title>
+    <!-- 
+
+        👀 Caught you peepin.
+
+        Let it be known before judgement is cast - this is a quick and dirty landing page that will make you gasp in horror.
+
+    -->
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 15px;
+            font-size: 18px;
+            line-height: 1.6;
+            font-family: sans-serif;
+            /* background: #212121; */
+            /* color: #f1f1f1; */
+            min-height: 100vh;
+            /* background-image: radial-gradient(circle at 1px 1px, rgb(131, 131, 131) 1px, transparent 0);
+            background-size: 30px 30px; */
+            background-color: #ffffff;
+        background-image:  repeating-linear-gradient(45deg, #eaeaea 25%, transparent 25%, transparent 75%, #eaeaea 75%, #eaeaea), repeating-linear-gradient(45deg, #eaeaea 25%, #ffffff 25%, #ffffff 75%, #eaeaea 75%, #eaeaea);
+        background-position: 0 0, 10px 10px;
+        background-size: 20px 20px;
+            color: #313131;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            padding-bottom: 0px;
+            border-bottom: 3px solid #92ff90;
+        }
+
+        .profile {
+            border-radius: 50%;
+            width: 150px;
+            display: inline-block;
+            margin-bottom: 30px;
+            border: 4px solid #92ff90
+        }
+
+        .accent {
+            /* color: #/da8585; */
+            color: #92ff90;
+        }
+
+        .container  {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .bubble {
+            background: #313131;
+            padding: 15px;
+            border-radius: 8px;
+            color: #fff;
+            max-width: 450px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .bubble:before {
+            content: '';
+            position: absolute;
+            top:-15px;
+            left:50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 15px 20px 15px;
+            border-color: transparent transparent #313131 transparent;
+        }
+
+        .m-0{
+            margin: 0;
+        }
+        .mb-1 {margin-bottom: 15px;}
+
+        .twitter {
+            padding: 5px 15px;
+            background: #fff;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        small { 
+            font-style: italic;
+            font-size: 12px;
+            color:#9c9c9c;
+            line-height:1.6;
+            display: inline-block;
+        }
+
+        @media screen and (min-width: 768px) {
+            body {
+                padding: 0;
+            }
+            .content {
+                flex-direction: row;
+                align-items: center;
+            }
+            .text-wrapper {
+                margin-left: 15px;
+            }
+            .profile {
+                margin-bottom: 0;
+            }
+
+            .bubble:before {
+                top: 50%;
+                left: -15px;
+                transform: translateY(-50%);
+                border-width: 15px 26.0px 15px 0;
+                border-color: transparent #313131 transparent transparent;
+            }
+
+            .bubble p {
+                margin-bottom: 0;
+            }
+        }
+        
+
+    </style>
 </head>
 <body>
-    working?
+    <div class="container">
+        <div class="content">
+            <img src="profile.jpg" alt="" class="profile">
+            <div class="text-wrapper">
+                <div class="bubble">
+                    <p class="m-0 mb-1">'Ey up, I'm <strong class="accent">Kieran</strong> a web developer based in Yorkshire.</p>
+                    <small>Please bear with me whilst I re-build my site for the umpteenth time.</small>
+                </div>
+                <p class="twitter m-0">Follow me on <a href="https://twitter.com/kierangreenwood" aria-label="Kieran Greenwood's Twitter Profile">Twitter</a>.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript   ">console.log("I've barely got any content on the page, what you expecting to see here? 👀")</script>
 </body>
 </html>
