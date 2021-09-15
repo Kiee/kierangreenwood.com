@@ -16,7 +16,7 @@
         
         body {
             margin: 0;
-            padding: 15px;
+            padding: 0;
             font-size: 18px;
             line-height: 1.6;
             font-family: sans-serif;
@@ -65,6 +65,10 @@
             justify-content: center;
         }
 
+        .text-wrapper {
+            margin: 0 15px;
+        }
+
         .bubble {
             background: #313131;
             padding: 15px;
@@ -108,14 +112,12 @@
         }
 
         @media screen and (min-width: 768px) {
-            body {
-                padding: 0;
-            }
             .content {
                 flex-direction: row;
                 align-items: center;
             }
             .text-wrapper {
+                margin: 0;
                 margin-left: 15px;
             }
             .profile {
