@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		enableFullscreen();
 		document.getElementById('audio').play();
 		let imgLimit = parseInt(document.getElementById('imgLimit').value);
+		let imgSize = parseInt(document.getElementById('imgSize').value);
+		document.head.innerHTML += `<style>img{max-width: ${imgSize}vw; max-height: ${imgSize}vh;}</style>;`
 		document.getElementById('intro').remove();
 		const images = await loadImages();
+		console.log(images)
 
 		let liveImages = [];
 
@@ -18,8 +21,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 		function spawnImage() {
+			// console.log("spawning_image");
 			let image = getRandomImage(images);
+			// console.log("img->", image);
 			let location = getRandomLocation(image, liveImages)
+
+			if(!location) {
+				return false;
+			}
+			// console.log("location->", location);
 			let img = image.el;
 
 			img.style.left = location.x + 'px';
@@ -28,21 +38,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			document.body.appendChild(img);
 			img.addEventListener('touchstart', handleInteraction)
+			// img.addEventListener('touchend', handleInteraction)
 
 			liveImages.push({ ...image, ...location })
 		}
 
 		function handleInteraction(e) {
-			for (var i = 0; i < liveImages.length; i++) {
-				if (liveImages[i].el === e.target) {
-					let el = liveImages[i].el;
-					el.removeEventListener('touchstart', handleInteraction);
-					el.classList.remove('sway');
-					el.classList.add('pop');
+			console.log("TARGET", e.target);
+
+			liveImages.forEach((image, index) => {
+				if (image.el === e.target) {
+					console.log("match", index, image);
+					image.el.removeEventListener('touchstart', handleInteraction);
+					image.el.classList.remove('sway');
+					image.el.classList.add('pop');
+
+					console.log("TOUCHES",e.touches);
 					createParticles(e.touches[0].clientX, e.touches[0].clientY);
+
 					setTimeout(() => {
-						el.remove();
-						liveImages.splice(i, 1);
+						image.el.remove()
+						liveImages.splice(index, 1);
 						spawnImage();
 					}, 400);
 
@@ -51,23 +67,32 @@ document.addEventListener('DOMContentLoaded', function () {
 					setTimeout(() => {
 						document.body.classList.remove('flash');
 					}, 150);
+
+					return;
 				}
-			}
+			})
+
 		}
 
 
 
 		function getRandomLocation(img, liveImages) {
+			// console.log("getting location", img, liveImages);
 			const imgWidth = img.width;
 			const imgHeight = img.height;
 			const windowWidth = window.innerWidth;
 			const windowHeight = window.innerHeight;
 
 			let x, y;
+			let chk = 0;
 
 			do {
+				chk++;
 				x = Math.floor(Math.random() * (windowWidth - imgWidth));
 				y = Math.floor(Math.random() * (windowHeight - imgHeight));
+				if (chk === 40) {
+					return false;
+				}
 			} while (doesOverlap(x, y, imgWidth, imgHeight, liveImages));
 
 			return { x, y };
@@ -75,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Check if an image overlaps with any other images in liveImages
 		function doesOverlap(x, y, width, height, liveImages) {
+			console.log("overlap check");
 			for (const image of liveImages) {
 				if (
 					x < image.x + image.width &&
@@ -101,9 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		function createParticles(x, y) {
+			// console.log("creating particles");
 			const numParticles = 50; // Adjust the number of particles as needed
 
 			for (let i = 0; i < numParticles; i++) {
+				// console.log("CREATING PARTICLE " + i)
 				const particle = document.createElement('div');
 				particle.className = 'particle';
 				document.body.appendChild(particle);
@@ -111,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				const angle = Math.random() * 2 * Math.PI;
 				const speed = Math.random() * 5 + 2;
 				const color = getRandomColor();
+				// console.log(angle,speed,color);
 
 				particle.style.left = x + 'px';
 				particle.style.top = y + 'px';
@@ -125,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				}, 0);
 
 				setTimeout(() => {
+					// console.log("REMOVING PARTICLE " + i)
 					document.body.removeChild(particle);
 				}, 500);
 			}
@@ -190,4 +220,3 @@ const loadImages = async () => {
 
 	return imagesArray;
 };
-

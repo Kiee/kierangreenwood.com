@@ -1,3 +1,6 @@
+:root {
+	--size: 20;
+}
 body {
 	margin: 0;
 	position:relative;
@@ -30,7 +33,7 @@ img {
 	position: absolute;
 	cursor: pointer;
 	max-height: 20vh;
-	max-width:20vw;
+	max-width: 20vw; 
 }
 
 .init {
