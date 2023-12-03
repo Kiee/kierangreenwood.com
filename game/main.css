@@ -1,0 +1,90 @@
+body {
+	margin: 0;
+	position:relative;
+	overflow: hidden;
+	background: black;
+	width: 100vw;
+	height: 100vh;
+}
+
+.intro {
+	font-family: sans-serif;
+	font-size: 24px;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	height:100vh;
+	max-width: 400px;
+	width: 100%;
+	align-items:center;
+	justify-items: center;
+	margin: auto;
+}
+
+.intro * {
+	margin-top: 15px;
+	padding: 10px;
+}
+
+img {
+	position: absolute;
+	cursor: pointer;
+	max-height: 20vh;
+	max-width:20vw;
+}
+
+.init {
+height: 0;
+width: 0;
+visibility: hidden;
+}
+
+
+.pop {
+	animation: pop 0.4s linear;
+}
+.sway {
+	animation: sway 0.5s alternate infinite ease-in-out;
+}
+.flash {
+	animation: flash 0.15s ease; /* Define flash animation */
+}
+@keyframes pop {
+	0% {
+			transform: scale(1);
+			opacity: 1;
+	}
+	100% {
+			transform: scale(1.5);
+			opacity: 0;
+	}
+}
+@keyframes sway {
+	0% {
+			transform: rotate(0deg);
+	}
+	100% {
+			transform: rotate(5deg);
+	}
+}
+@keyframes flash {
+	0% {
+			background-color: black;
+	}
+	50% {
+			background-color: rgb(240, 240, 170); /* Change this to your desired color */
+	}
+	100% {
+			background-color: black;
+	}
+}
+
+.particle {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background-color: #fff; /* Initial particle color */
+	border-radius: 50%;
+	pointer-events: none;
+	transition: transform 1s ease-out, opacity 1s ease-out;
+}

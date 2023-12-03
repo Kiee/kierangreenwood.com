@@ -2,157 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Baby Game</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-						background: black;
-        }
-
-        img {
-            position: absolute;
-            cursor: pointer;
-        }
-
-
-				.pop {
-            animation: pop 0.3s linear;
-        }
-        .sway {
-            animation: sway 0.5s alternate infinite ease-in-out;
-        }
-        .flash {
-            animation: flash 0.3s ease; /* Define flash animation */
-        }
-        @keyframes pop {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-        @keyframes sway {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(5deg);
-            }
-        }
-        @keyframes flash {
-            0% {
-                background-color: black;
-            }
-            50% {
-                background-color: rgb(240, 240, 170); /* Change this to your desired color */
-            }
-            100% {
-                background-color: black;
-            }
-        }
-    </style>
+		<link rel="stylesheet" href="./main.css">
+		<script src="./main.js"></script>
 </head>
 <body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const imageCount = 5; // Change this to your desired image count
-            const images = ["./images/banana.png", "./images/blueberry.png", "./images/orange.png", "./images/pineapple.png", "./images/avocado.png", "./images/strawberry.png"];
-            const maxDimension = 150; // Change this to your desired max dimension
+	<audio autoplay loop style="display: none" id="audio">
+    <source src="./audio.mp3" type="audio/mp3">
+	</audio>
 
-            // Function to create a random number within a range
-            function getRandomNumber(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-
-            // Function to check if an image overlaps with existing images
-            function doesOverlap(x, y, size) {
-                for (const img of document.querySelectorAll('img')) {
-                    const rect = img.getBoundingClientRect();
-                    if (
-                        x < rect.right &&
-                        x + size > rect.left &&
-                        y < rect.bottom &&
-                        y + size > rect.top
-                    ) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            // Function to cap the image dimensions at maxDimension
-            function capImageDimensions(width, height) {
-                const aspectRatio = width / height;
-
-                if (width > height) {
-                    width = Math.min(maxDimension, width);
-                    height = width / aspectRatio;
-                } else {
-                    height = Math.min(maxDimension, height);
-                    width = height * aspectRatio;
-                }
-
-                return { width, height };
-            }
-
-            // Function to spawn a new image
-            function spawnImage() {
-                const image = new Image();
-								image.classList.add('sway');
-                const size = getRandomNumber(50, maxDimension); // Random size between 50 and maxDimension
-                let x, y;
-
-                do {
-                    x = getRandomNumber(0, window.innerWidth - size);
-                    y = getRandomNumber(0, window.innerHeight - size);
-                } while (doesOverlap(x, y, size));
-
-                const randomImageUrl = images[getRandomNumber(0, images.length - 1)];
-                const tempImage = new Image();
-
-                // Load the temporary image to get its dimensions
-                tempImage.onload = function () {
-                    const cappedDimensions = capImageDimensions(tempImage.width, tempImage.height);
-
-                    image.src = randomImageUrl;
-                    image.width = cappedDimensions.width;
-                    image.height = cappedDimensions.height;
-                    image.style.left = x + "px";
-                    image.style.top = y + "px";
-                    image.addEventListener("click", onImageClick);
-
-                    document.body.appendChild(image);
-                };
-
-                tempImage.src = randomImageUrl;
-            }
-
-            // Function to handle image click
-            function onImageClick(event) {
-                const image = event.target;
-                image.classList.remove("sway");
-                image.classList.add("pop");
-                document.body.classList.add("flash"); // Add flash animation to body
-                setTimeout(() => {
-                    image.style.visibility = "hidden"; // Hide the image after the pop animation
-                    setTimeout(() => {
-                        image.remove();
-                        spawnImage();
-                        document.body.classList.remove("flash"); // Remove flash animation from body
-                    }, 100); // Delay removal for visibility
-                }, 300);
-            }
-
-            // Initial spawn of images
-            for (let i = 0; i < imageCount; i++) {
-                spawnImage();
-            }
-        });
-    </script>
+	<div id="intro" class="intro">
+		<label for="" style="color:#fff">Fruits</label>
+		<input type="number" id="imgLimit" value="6" size="3"/>
+		<button id="start">Start</button>
+	</div>
 </body>
 </html>
